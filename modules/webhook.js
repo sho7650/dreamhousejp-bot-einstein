@@ -48,12 +48,20 @@ let processText = (text, sender)  => {
     //    return;
     //}
 
+    match(text, [/find houses between (.*) and (.*)/i], (values) => {
+        salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
+            sendMessage({text: `Here are the properties for sale around you between ${values[1]} and ${values[2]}`}, sender);
+            //sendMessage(formatter.formatProperties(properties), sender);
+        });
+    });
+
     match(text, [/find houses/i, /find properties/i], () => {
         salesforce.findProperties().then(properties => {
             sendMessage({text: `Here are the properties for sale around you`}, sender);
             sendMessage(formatter.formatProperties(properties), sender);
         });
     });
+
 
 
     //match = text.match(/find houses/i);
