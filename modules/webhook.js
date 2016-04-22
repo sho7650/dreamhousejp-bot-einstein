@@ -45,15 +45,6 @@ let processText = (text, sender)  => {
         return;
     }
 
-    match = text.match(/search (.*) in accounts/i);
-    if (match) {
-        salesforce.findAccount(match[1]).then(accounts => {
-            sendMessage({text: `Here are the accounts I found matching "${match[1]}":`}, sender);
-            sendMessage(formatter.formatAccounts(accounts), sender)
-        });
-        return;
-    }
-
     match = text.match(/search contact (.*)/i);
     if (match) {
         salesforce.findContact(match[1]).then(contacts => {
