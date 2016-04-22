@@ -2,13 +2,13 @@
 
 let formatProperties = properties => {
     console.log("*** formapProperties");
-    console.log(properties);
+    //console.log(properties);
     let elements = [];
     properties.forEach(property => {
             console.log(property);
             elements.push({
                 title: property.get("Title__c"),
-                subtitle: property.get("Address__c") + " " + account.get("City__c") + " " + account.get("State__c") + " · " + account.get("Price__c"),
+                subtitle: property.get("Address__c") + " " + property.get("City__c") + " " + property.get("State__c") + " · " + property.get("Price__c"),
                 "image_url": property.get("Picture__c"),
                 "buttons": [{
                     "type": "postback",
