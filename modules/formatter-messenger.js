@@ -2,6 +2,7 @@
 
 let formatProperties = properties => {
     console.log("*** formapProperties");
+    console.log(properties);
     let elements = [];
     properties.forEach(property => {
             console.log(property);
