@@ -1,20 +1,20 @@
 "use strict";
 
-let formatAccounts = accounts => {
+let formatProperties = properties => {
     let elements = [];
-    accounts.forEach(account =>
+    properties.forEach(property =>
         elements.push({
-            title: account.get("Name"),
-            subtitle: account.get("BillingStreet") + ", " + account.get("BillingCity") + " " + account.get("BillingState") + " · " + account.get("Phone"),
-            "image_url": account.get("Picture_URL__c"),
+            title: account.get("Title__c"),
+            subtitle: account.get("Address__c") + " " + account.get("City__c") + " " + account.get("State__c") + " · " + account.get("Price__c"),
+            "image_url": account.get("Picture__c"),
             "buttons": [{
                 "type":"postback",
-                "title":"View Contacts",
-                "payload": "view_contacts," + account.getId() + "," + account.get("Name")
+                "title":"Contact broker",
+                "payload": "contact_broker," + property.getId()
             },{
                 "type": "web_url",
                 "url": "https://login.salesforce.com/" + account.getId(),
-                "title": "Open in Salesforce"
+                "title": "Start directions"
             },
 ]
         })

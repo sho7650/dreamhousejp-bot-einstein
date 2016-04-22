@@ -26,15 +26,25 @@ let login = () => {
     });
 };
 
-let findAccount = name => {
+let findProperties = () => {
     return new Promise((resolve, reject) => {
-        let q = "SELECT Id, Name, BillingStreet, BillingCity, BillingState, Picture_URL__c, Phone FROM Account WHERE Name LIKE '%" + name + "%' LIMIT 5";
+        let q = `SELECT id,
+                    title__c,
+                    city__c,
+                    address__c,
+                    state__c,
+                    price__c,
+                    beds__c,
+                    baths__c,
+                    picture__c
+                FROM property__c
+                LIMIT 5`;
         org.query({query: q}, (err, resp) => {
             if (err) {
                 reject("An error as occurred");
             } else if (resp.records && resp.records.length>0) {
-                let accounts = resp.records;
-                resolve(accounts);
+                let properties = resp.records;
+                resolve(properties);
             }
         });
     });
@@ -94,7 +104,7 @@ let getTopOpportunities = count => {
 login();
 
 exports.org = org;
-exports.findAccount = findAccount;
+exports.findProperties = findProperties;
 exports.findContact = findContact;
 exports.findContactsByAccount = findContactsByAccount;
 exports.getTopOpportunities = getTopOpportunities;

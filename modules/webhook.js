@@ -36,11 +36,11 @@ let processText = (text, sender)  => {
         return;
     }
 
-    match = text.match(/search account (.*)/i);
+    match = text.match(/find properties/i);
     if (match) {
-        salesforce.findAccount(match[1]).then(accounts => {
-            sendMessage({text: `Here are the accounts I found matching "${match[1]}":`}, sender);
-            sendMessage(formatter.formatAccounts(accounts), sender)
+        salesforce.findProperties().then(properties => {
+            sendMessage({text: `Here are the properties for sale around you`}, sender);
+            sendMessage(formatter.formatProperties(properties), sender);
         });
         return;
     }
