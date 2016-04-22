@@ -76,11 +76,14 @@ let processText = (text, sender)  => {
 let handleGet = (req, res) => {
     if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
+    } else {
+        res.send('Error, wrong validation token');
     }
-    res.send('Error, wrong validation token');
 };
 
 let handlePost = (req, res) => {
+    console.log("handlepost");
+    console.log(req.body);
     let events = req.body.entry[0].messaging;
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
