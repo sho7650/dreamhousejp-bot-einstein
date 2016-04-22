@@ -3,22 +3,24 @@
 let formatProperties = properties => {
     console.log("*** formapProperties");
     let elements = [];
-    properties.forEach(property =>
-        elements.push({
-            title: account.get("Title__c"),
-            subtitle: account.get("Address__c") + " " + account.get("City__c") + " " + account.get("State__c") + " · " + account.get("Price__c"),
-            "image_url": account.get("Picture__c"),
-            "buttons": [{
-                "type":"postback",
-                "title":"Contact broker",
-                "payload": "contact_broker," + property.getId()
-            },{
-                "type": "web_url",
-                "url": "https://login.salesforce.com/" + property.getId(),
-                "title": "Start directions"
-            },
-]
-        })
+    properties.forEach(property => {
+            console.log(property);
+            elements.push({
+                title: property.get("Title__c"),
+                subtitle: property.get("Address__c") + " " + account.get("City__c") + " " + account.get("State__c") + " · " + account.get("Price__c"),
+                "image_url": property.get("Picture__c"),
+                "buttons": [{
+                    "type": "postback",
+                    "title": "Contact broker",
+                    "payload": "contact_broker," + property.getId()
+                }, {
+                    "type": "web_url",
+                    "url": "https://login.salesforce.com/" + property.getId(),
+                    "title": "Start directions"
+                }
+                ]
+            })
+        }
     );
     return {
         "attachment": {
