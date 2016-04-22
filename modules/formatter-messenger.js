@@ -13,7 +13,7 @@ let formatProperties = properties => {
                 "payload": "contact_broker," + property.getId()
             },{
                 "type": "web_url",
-                "url": "https://login.salesforce.com/" + account.getId(),
+                "url": "https://login.salesforce.com/" + property.getId(),
                 "title": "Start directions"
             },
 ]
