@@ -48,7 +48,7 @@ let processText = (text, sender)  => {
     //    return;
     //}
 
-    match(text, [/find houses/i], () => {
+    match(text, [/find houses/i, /find properties/i], () => {
         salesforce.findProperties().then(properties => {
             sendMessage({text: `Here are the properties for sale around you`}, sender);
             sendMessage(formatter.formatProperties(properties), sender);
