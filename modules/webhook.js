@@ -24,7 +24,7 @@ let sendMessage = (message, recipient) => {
 
 let match = (text, patterns, handler) => {
 
-    patterns.forEach(text, pattern => {
+    patterns.forEach(pattern => {
         let m = text.match(pattern);
         if (m) {
             handler(m);
