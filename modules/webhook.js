@@ -52,8 +52,8 @@ let processText = (text, sender)  => {
         salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
             sendMessage({text: `Here are the properties for sale around you between ${values[1]} and ${values[2]}`}, sender);
             //sendMessage(formatter.formatProperties(properties), sender);
-            return;
         });
+        return;
     });
 
     match(text, [/find houses/i, /find properties/i], () => {
