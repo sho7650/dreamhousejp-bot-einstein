@@ -30,8 +30,8 @@ let findProperties = () => {
     return new Promise((resolve, reject) => {
         let q = `SELECT id,
                     title__c,
-                    city__c,
                     address__c,
+                    city__c,
                     state__c,
                     price__c,
                     beds__c,
@@ -42,7 +42,7 @@ let findProperties = () => {
         org.query({query: q}, (err, resp) => {
             if (err) {
                 reject("An error as occurred");
-            } else if (resp.records && resp.records.length>0) {
+            } else {
                 let properties = resp.records;
                 resolve(properties);
             }

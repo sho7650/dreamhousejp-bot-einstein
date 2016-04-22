@@ -1,6 +1,7 @@
 "use strict";
 
 let formatProperties = properties => {
+    console.log("*** formapProperties");
     let elements = [];
     properties.forEach(property =>
         elements.push({
