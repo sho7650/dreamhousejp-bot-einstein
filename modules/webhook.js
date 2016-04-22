@@ -22,46 +22,66 @@ let sendMessage = (message, recipient) => {
     });
 };
 
-let processText = (text, sender)  => {
-    let match;
-    match = text.match(/help/i);
-    if (match) {
-        sendMessage({text:
-            `You can ask me things like:
-    Search account Acme
-    Search Acme in accounts
-    Search contact Smith
-    What are my top 3 opportunities?
-        `}, sender);
-        return;
-    }
+let match = (text, patterns, handler) => {
 
-    match = text.match(/find properties/i);
-    if (match) {
+    patterns.forEach(text, pattern => {
+        let m = text.match(pattern);
+        if (m) {
+            handler(m);
+            return;
+        }
+    });
+
+};
+
+let processText = (text, sender)  => {
+    //let match;
+    //match = text.match(/help/i);
+    //if (match) {
+    //    sendMessage({text:
+    //        `You can ask me things like:
+    //Search account Acme
+    //Search Acme in accounts
+    //Search contact Smith
+    //What are my top 3 opportunities?
+    //    `}, sender);
+    //    return;
+    //}
+
+    match(text, [/find houses/i], () => {
         salesforce.findProperties().then(properties => {
             sendMessage({text: `Here are the properties for sale around you`}, sender);
             sendMessage(formatter.formatProperties(properties), sender);
         });
-        return;
-    }
+    });
 
-    match = text.match(/search contact (.*)/i);
-    if (match) {
-        salesforce.findContact(match[1]).then(contacts => {
-            sendMessage({text: `Here are the contacts I found matching "${match[1]}":`}, sender);
-            sendMessage(formatter.formatContacts(contacts), sender)
-        });
-        return;
-    }
 
-    match = text.match(/top (.*) opportunities/i);
-    if (match) {
-        salesforce.getTopOpportunities(match[1]).then(opportunities => {
-            sendMessage({text: `Here are your top ${match[1]} opportunities:`}, sender);
-            sendMessage(formatter.formatOpportunities(opportunities), sender)
-        });
-        return;
-    }
+    //match = text.match(/find houses/i);
+    //if (match) {
+    //    salesforce.findProperties().then(properties => {
+    //        sendMessage({text: `Here are the properties for sale around you`}, sender);
+    //        sendMessage(formatter.formatProperties(properties), sender);
+    //    });
+    //    return;
+    //}
+    //
+    //match = text.match(/search contact (.*)/i);
+    //if (match) {
+    //    salesforce.findContact(match[1]).then(contacts => {
+    //        sendMessage({text: `Here are the contacts I found matching "${match[1]}":`}, sender);
+    //        sendMessage(formatter.formatContacts(contacts), sender)
+    //    });
+    //    return;
+    //}
+    //
+    //match = text.match(/top (.*) opportunities/i);
+    //if (match) {
+    //    salesforce.getTopOpportunities(match[1]).then(opportunities => {
+    //        sendMessage({text: `Here are your top ${match[1]} opportunities:`}, sender);
+    //        sendMessage(formatter.formatOpportunities(opportunities), sender)
+    //    });
+    //    return;
+    //}
 };
 
 let handleGet = (req, res) => {
