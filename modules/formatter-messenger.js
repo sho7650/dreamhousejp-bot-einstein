@@ -97,6 +97,6 @@ let formatOpportunities = opportunities => {
     };
 };
 
-exports.formatAccounts = formatAccounts;
+exports.formatProperties = formatProperties;
 exports.formatContacts = formatContacts;
 exports.formatOpportunities = formatOpportunities;
