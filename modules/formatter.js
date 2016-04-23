@@ -115,3 +115,4 @@ let formatBroker = broker => {
 
 exports.formatProperties = formatProperties;
 exports.formatAppointment = formatAppointment;
+exports.formatBroker = formatBroker;
