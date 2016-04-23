@@ -1,8 +1,11 @@
-searchPropertyWithBedroomsInTown (.*) bedrooms in (.*)
-searchPropertyInTown in (.*)
-searchPropertyByPriceRange search house between (.*) and (.*)
-searchPropertyByBedrooms (.*) bedrooms
-searchProperty search house
-searchProperty looking for house
-searchProperty find house
-searchProperty house for sale
+searchHouse_Bedrooms_City_Range (.*) bedrooms in (.*) between (.*) and (.*)
+searchHouse_Bedrooms_City_Range (.*) bedrooms in (.*) from (.*) to (.*)
+searchHouse_Bedrooms_City (.*) bedrooms in (.*)
+searchHouse_City in (.*)
+searchHouse_Range between (.*) and (.*)
+searchHouse_Range from (.*) to (.*)
+searchHouse_Bedrooms (.*) bedrooms
+searchHouse search house
+searchHouse looking for house
+searchHouse find house
+searchHouse for sale

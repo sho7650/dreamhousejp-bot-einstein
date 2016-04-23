@@ -25,37 +25,48 @@ let sendMessage = (message, recipient) => {
 
 let handlers = {};
 
-handlers.searchProperty = (sender) => {
+handlers.searchHouse = (sender) => {
     sendMessage({text: `OK, looking for houses for sale around you...`}, sender);
     salesforce.findProperties().then(properties => {
         sendMessage(formatter.formatProperties(properties), sender);
     });
 };
 
-handlers.searchPropertyInTown = (sender, values) => {
-    sendMessage({text: `OK, looking for houses for sale in ${values[1]}`}, sender);
+handlers.searchHouse_City = (sender, values) => {
+    sendMessage({text: `OK, looking for houses in ${values[1]}`}, sender);
     salesforce.findProperties({city: values[1]}).then(properties => {
         sendMessage(formatter.formatProperties(properties), sender);
     });
 };
 
-
-
-
-handlers.searchPropertyByPriceRange = (sender, values) => {
-    sendMessage({text: `OK, looking for houses between ${values[1]} and ${values[2]}...`}, sender);
-    //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
-        //sendMessage(formatter.formatProperties(properties), sender);
-    //});
+handlers.searchHouse_Bedrooms_City_Range = (sender, values) => {
+    sendMessage({text: `OK, looking for values[1] bedrooms in ${values[2]} between ${values[3]} and ${values[4]}`}, sender);
+    salesforce.findProperties({bedrooms: values[1], city: values[2]}).then(properties => {
+        sendMessage(formatter.formatProperties(properties), sender);
+    });
 };
 
-
-handlers.searchPropertyByBedrooms = (sender, values) => {
-    sendMessage({text: `OK, looking for houses with ${values[1]} bedrooms...`}, sender);
-    //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
-    //sendMessage(formatter.formatProperties(properties), sender);
-    //});
+handlers.searchHouse_Bedrooms_City = (sender, values) => {
+    sendMessage({text: `OK, looking for values[1] bedroom houses in ${values[2]}`}, sender);
+    salesforce.findProperties({bedrooms: values[1], city: values[2]}).then(properties => {
+        sendMessage(formatter.formatProperties(properties), sender);
+    });
 };
+
+handlers.searchHouse_Bedrooms = (sender, values) => {
+    sendMessage({text: `OK, looking for values[1] bedroom houses`}, sender);
+    salesforce.findProperties({bedrooms: values[1]}).then(properties => {
+        sendMessage(formatter.formatProperties(properties), sender);
+    });
+};
+
+handlers.searchHouse_Range = (sender, values) => {
+    sendMessage({text: `OK, looking for houses between ${values[1]} and ${values[2]}`}, sender);
+    salesforce.findProperties({priceMin: values[1], priceMax: values[2]}).then(properties => {
+        sendMessage(formatter.formatProperties(properties), sender);
+    });
+};
+
 
 processor.init("dictionary.txt", handlers);
 
