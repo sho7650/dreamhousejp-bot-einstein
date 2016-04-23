@@ -34,7 +34,7 @@ handlers.searchPropertyByPriceRange = (sender, values) => {
 
 handlers.searchProperty = (sender) => {
     sendMessage({text: `OK, looking for houses for sale around you...`}, sender);
-    salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
+    salesforce.findProperties().then(properties => {
         sendMessage(formatter.formatProperties(properties), sender);
     });
 };
