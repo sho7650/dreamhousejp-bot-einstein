@@ -1,3 +1,6 @@
-searchPropertyByPriceRange search house between (.*) and (.*)
 searchProperty search house
+searchProperty looking for house
+searchProperty find house
+searchProperty house for sale
+searchPropertyByPriceRange search house between (.*) and (.*)
 searchPropertyByBedrooms (.*) bedrooms
