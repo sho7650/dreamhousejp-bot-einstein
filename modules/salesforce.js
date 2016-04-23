@@ -26,7 +26,18 @@ let login = () => {
     });
 };
 
-let findProperties = () => {
+let findProperties = (params) => {
+    let where = "";
+    if (params) {
+        let parts = [];
+        if (params.city) parts.push(`city__c='${params.city}'`);
+        if (params.bedrooms) parts.push(`beds__c=${params.bedrooms}`);
+        if (params.priceMin) parts.push(`price__c>=${params.priceMin}`);
+        if (params.priceMax) parts.push(`price__c<=${params.priceMax}`);
+        if (parts.length>0) {
+            where = "WHERE " + parts.join(' AND ');
+        }
+    }
     return new Promise((resolve, reject) => {
         let q = `SELECT id,
                     title__c,
@@ -38,7 +49,9 @@ let findProperties = () => {
                     baths__c,
                     picture__c
                 FROM property__c
+                ${where}
                 LIMIT 5`;
+        console.log(q);
         org.query({query: q}, (err, resp) => {
             if (err) {
                 reject("An error as occurred");

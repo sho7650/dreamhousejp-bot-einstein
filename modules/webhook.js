@@ -25,6 +25,23 @@ let sendMessage = (message, recipient) => {
 
 let handlers = {};
 
+handlers.searchProperty = (sender) => {
+    sendMessage({text: `OK, looking for houses for sale around you...`}, sender);
+    salesforce.findProperties().then(properties => {
+        sendMessage(formatter.formatProperties(properties), sender);
+    });
+};
+
+handlers.searchPropertyInTown = (sender, values) => {
+    sendMessage({text: `OK, looking for houses for sale in ${values[1]}`}, sender);
+    salesforce.findProperties({city: values[1]}).then(properties => {
+        sendMessage(formatter.formatProperties(properties), sender);
+    });
+};
+
+
+
+
 handlers.searchPropertyByPriceRange = (sender, values) => {
     sendMessage({text: `OK, looking for houses between ${values[1]} and ${values[2]}...`}, sender);
     //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
@@ -32,12 +49,6 @@ handlers.searchPropertyByPriceRange = (sender, values) => {
     //});
 };
 
-handlers.searchProperty = (sender) => {
-    sendMessage({text: `OK, looking for houses for sale around you...`}, sender);
-    salesforce.findProperties().then(properties => {
-        sendMessage(formatter.formatProperties(properties), sender);
-    });
-};
 
 handlers.searchPropertyByBedrooms = (sender, values) => {
     sendMessage({text: `OK, looking for houses with ${values[1]} bedrooms...`}, sender);
