@@ -52,7 +52,7 @@ let formatAppointment = property => {
     ];
     let elements = [];
     elements.push({
-        title: property.get("Title__c"),
+        title: "Scheduling a visit",
         subtitle: property.get("Address__c") + " " + property.get("City__c") + " " + property.get("State__c") + " · " + property.get("Price__c"),
         "image_url": property.get("Picture__c"),
         "buttons": [
@@ -72,6 +72,35 @@ let formatAppointment = property => {
                 "payload": "confirm_visit," + property.get("Address__c") + " in " + property.get("City__c") + "," + options[2]
             }
         ]
+    });
+    return {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": elements
+            }
+        }
+    };
+};
+
+let formatBroker = broker => {
+    let elements = [];
+    elements.push({
+        title: "Caroline Kingsley",
+        subtitle: "Senior Broker",
+        "image_url": "https://s3-us-west-1.amazonaws.com/sfdc-demo/messenger/caroline_500x260.png",
+        "buttons": [
+            {
+                "type": "postback",
+                "title": "View Notes",
+                "payload": "view_notes,"
+            },
+            {
+                "type": "web_url",
+                "url": "tel:617-584-9824",
+                "title": "Call"
+            }]
     });
     return {
         "attachment": {

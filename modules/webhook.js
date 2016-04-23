@@ -74,8 +74,10 @@ let processPostback = (sender, postback) => {
             sendMessage({text: "OK, here is what I found. Select one of the times below"}, sender);
             sendMessage(formatter.formatAppointment(properties[0]), sender);
         });
+    } else if (payload[0] === "contact_broker") {
+        sendMessage(formatter.formatBroker(), sender);
     } else if (payload[0] === "confirm_visit") {
-        sendMessage({text: `OK, your appointment is confirmed for ${payload[2]}. ${payload[1]}`}, sender);
+        sendMessage({text: `OK, your appointment is confirmed for ${payload[2]}. ${payload[1]}.`}, sender);
     }
 }
 

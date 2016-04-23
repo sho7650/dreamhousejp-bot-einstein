@@ -81,44 +81,9 @@ let findContact = name => {
 
 };
 
-let findContactsByAccount = accountId => {
-
-    return new Promise((resolve, reject) => {
-        let q = "SELECT Id, Name, Title, Account.Name, Phone, MobilePhone, Email, Picture_URL__c FROM Contact WHERE Account.Id = '" + accountId + "' LIMIT 5";
-        org.query({query: q}, (err, resp) => {
-            if (err) {
-                reject("An error as occurred");
-            } else if (resp.records && resp.records.length>0) {
-                let contacts = resp.records;
-                resolve(contacts);
-            }
-        });
-    });
-
-};
-
-let getTopOpportunities = count => {
-
-    count = count || 5;
-
-    return new Promise((resolve, reject) => {
-        let q = "SELECT Id, Name, Amount, Probability, StageName, CloseDate, Account.Name, Account.Picture_URL__c FROM Opportunity WHERE isClosed=false ORDER BY amount DESC LIMIT " + count;
-        org.query({query: q}, (err, resp) => {
-            if (err) {
-                console.error(err);
-                reject("An error as occurred");
-            } else {
-                resolve(resp.records);
-            }
-        });
-    });
-
-};
 
 login();
 
 exports.org = org;
 exports.findProperties = findProperties;
 exports.findContact = findContact;
-exports.findContactsByAccount = findContactsByAccount;
-exports.getTopOpportunities = getTopOpportunities;
