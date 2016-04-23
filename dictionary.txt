@@ -1,0 +1,3 @@
+searchProperty search house
+searchPropertyByPriceRange search house between (.*) and (.*)
+searchPropertyByBedrooms (.*) bedrooms

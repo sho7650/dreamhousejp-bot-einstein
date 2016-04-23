@@ -2,6 +2,7 @@
 
 let request = require('request'),
     salesforce = require('./salesforce'),
+    processor = require('./processor'),
     formatter = require('./formatter-messenger');
 
 let sendMessage = (message, recipient) => {
@@ -22,46 +23,75 @@ let sendMessage = (message, recipient) => {
     });
 };
 
-let match = (text, patterns, handler) => {
+let handlers = {};
 
-    patterns.forEach(pattern => {
-        let m = text.match(pattern);
-        if (m) {
-            handler(m);
-            return;
-        }
-    });
-
+handlers.searchPropertyByPriceRange = (recipient, values) => {
+    sendMessage({text: `OK, looking for houses between ${values[1]} and ${values[2]}...`}, sender);
+    //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
+        //sendMessage(formatter.formatProperties(properties), sender);
+    //});
 };
 
-let processText = (text, sender)  => {
-    //let match;
-    //match = text.match(/help/i);
-    //if (match) {
-    //    sendMessage({text:
-    //        `You can ask me things like:
-    //Search account Acme
-    //Search Acme in accounts
-    //Search contact Smith
-    //What are my top 3 opportunities?
-    //    `}, sender);
+handlers.searchProperty = (recipient) => {
+    sendMessage({text: `OK, looking for houses for sale around you...`}, sender);
+    //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
+    //sendMessage(formatter.formatProperties(properties), sender);
+    //});
+};
+
+handlers.searchPropertyByBedrooms = (recipient, values) => {
+    sendMessage({text: `OK, looking for houses with ${values[1]} bedrooms...`}, sender);
+    //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
+    //sendMessage(formatter.formatProperties(properties), sender);
+    //});
+};
+
+processor.init("dictionary.txt", handlers);
+
+
+//let match = (text, patterns) => {
+//
+//    patterns.forEach(pattern => {
+//        let m = text.match(pattern);
+//        if (m) {
+//            return m;
+//        }
+//    });
+//
+//    return false;
+//
+//};
+//
+//let processText = (text, sender)  => {
+//
+//
+//    let match;
+//    match = text.match(/help/i);
+//    if (match) {
+//        sendMessage({text:
+//            `You can ask me things like:
+//    Search account Acme
+//    Search Acme in accounts
+//    Search contact Smith
+//    What are my top 3 opportunities?
+//        `}, sender);
+//        return;
+//    }
+
+    //match(text, [/find houses between (.*) and (.*)/i], (values) => {
+    //    salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
+    //        sendMessage({text: `Here are the properties for sale around you between ${values[1]} and ${values[2]}`}, sender);
+    //        //sendMessage(formatter.formatProperties(properties), sender);
+    //    });
     //    return;
-    //}
-
-    match(text, [/find houses between (.*) and (.*)/i], (values) => {
-        salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
-            sendMessage({text: `Here are the properties for sale around you between ${values[1]} and ${values[2]}`}, sender);
-            //sendMessage(formatter.formatProperties(properties), sender);
-        });
-        return;
-    });
-
-    match(text, [/find houses/i, /find properties/i], () => {
-        salesforce.findProperties().then(properties => {
-            sendMessage({text: `Here are the properties for sale around you`}, sender);
-            sendMessage(formatter.formatProperties(properties), sender);
-        });
-    });
+    //});
+    //
+    //match(text, [/find houses/i, /find properties/i], () => {
+    //    salesforce.findProperties().then(properties => {
+    //        sendMessage({text: `Here are the properties for sale around you`}, sender);
+    //        sendMessage(formatter.formatProperties(properties), sender);
+    //    });
+    //});
 
 
 
@@ -91,7 +121,7 @@ let processText = (text, sender)  => {
     //    });
     //    return;
     //}
-};
+//};
 
 let handleGet = (req, res) => {
     if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
@@ -109,7 +139,14 @@ let handlePost = (req, res) => {
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
-            processText(event.message.text, sender);
+            //processText(event.message.text, sender);
+            let {handlerName, matchValues} = processor.match(text);
+            let handler = handlers[handlerName];
+            if (handler && typeof handler === "function") {
+                handler(matchValues);
+            } else {
+                console.log("Handler " + handlerName + " is not defined");
+            }
         } else if (event.postback) {
             let payload = event.postback.payload.split(",");
             if (payload[0] === "view_contacts") {
