@@ -141,6 +141,7 @@ let handlePost = (req, res) => {
         } else if (event.message && event.message.text) {
             //processText(event.message.text, sender);
             let result = processor.match(text);
+            console.log(result);
             if (result) {
                 let handler = handlers[result.handlerName];
                 if (handler && typeof handler === "function") {
