@@ -30,6 +30,7 @@ let findProperties = (params) => {
     let where = "";
     if (params) {
         let parts = [];
+        if (params.id) parts.push(`id='${params.id}'`);
         if (params.city) parts.push(`city__c='${params.city}'`);
         if (params.bedrooms) parts.push(`beds__c=${params.bedrooms}`);
         if (params.priceMin) parts.push(`price__c>=${params.priceMin}`);

@@ -3,7 +3,7 @@
 let request = require('request'),
     salesforce = require('./salesforce'),
     processor = require('./processor'),
-    formatter = require('./formatter-messenger');
+    formatter = require('./formatter');
 
 let sendMessage = (message, recipient) => {
     request({
@@ -67,83 +67,21 @@ handlers.searchHouse_Range = (sender, values) => {
     });
 };
 
+let processPostback = postback => {
+    let payload = postback.payload.split(",");
+    if (payload[0] === "schedule_visit") {
+        salesforce.findProperties({id: payload[1]}).then(properties => {
+            sendMessage({text: "OK, here is what I found. Select one of the times below"}, sender);
+            sendMessage(formatter.formatAppointment(properties[0]), sender);
+        });
+    } else if (payload[0] === "confirm_visit") {
+        sendMessage({text: `OK, the visit is confirmed`}, sender);
+    }
+}
 
 processor.init("dictionary.txt", handlers);
 
 
-//let match = (text, patterns) => {
-//
-//    patterns.forEach(pattern => {
-//        let m = text.match(pattern);
-//        if (m) {
-//            return m;
-//        }
-//    });
-//
-//    return false;
-//
-//};
-//
-//let processText = (text, sender)  => {
-//
-//
-//    let match;
-//    match = text.match(/help/i);
-//    if (match) {
-//        sendMessage({text:
-//            `You can ask me things like:
-//    Search account Acme
-//    Search Acme in accounts
-//    Search contact Smith
-//    What are my top 3 opportunities?
-//        `}, sender);
-//        return;
-//    }
-
-    //match(text, [/find houses between (.*) and (.*)/i], (values) => {
-    //    salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
-    //        sendMessage({text: `Here are the properties for sale around you between ${values[1]} and ${values[2]}`}, sender);
-    //        //sendMessage(formatter.formatProperties(properties), sender);
-    //    });
-    //    return;
-    //});
-    //
-    //match(text, [/find houses/i, /find properties/i], () => {
-    //    salesforce.findProperties().then(properties => {
-    //        sendMessage({text: `Here are the properties for sale around you`}, sender);
-    //        sendMessage(formatter.formatProperties(properties), sender);
-    //    });
-    //});
-
-
-
-    //match = text.match(/find houses/i);
-    //if (match) {
-    //    salesforce.findProperties().then(properties => {
-    //        sendMessage({text: `Here are the properties for sale around you`}, sender);
-    //        sendMessage(formatter.formatProperties(properties), sender);
-    //    });
-    //    return;
-    //}
-    //
-    //match = text.match(/search contact (.*)/i);
-    //if (match) {
-    //    salesforce.findContact(match[1]).then(contacts => {
-    //        sendMessage({text: `Here are the contacts I found matching "${match[1]}":`}, sender);
-    //        sendMessage(formatter.formatContacts(contacts), sender)
-    //    });
-    //    return;
-    //}
-    //
-    //match = text.match(/top (.*) opportunities/i);
-    //if (match) {
-    //    salesforce.getTopOpportunities(match[1]).then(opportunities => {
-    //        sendMessage({text: `Here are your top ${match[1]} opportunities:`}, sender);
-    //        sendMessage(formatter.formatOpportunities(opportunities), sender)
-    //    });
-    //    return;
-    //}
-//};
 
 let handleGet = (req, res) => {
     if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
@@ -154,7 +92,6 @@ let handleGet = (req, res) => {
 };
 
 let handlePost = (req, res) => {
-    console.log('handlepost');
     let events = req.body.entry[0].messaging;
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
@@ -162,29 +99,17 @@ let handlePost = (req, res) => {
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
-            //processText(event.message.text, sender);
-            console.log('processing....');
             let result = processor.match(event.message.text);
-            //console.log(result);
             if (result) {
                 let handler = handlers[result.handler];
                 if (handler && typeof handler === "function") {
-                    console.log("*******" + sender);
                     handler(sender, result.match);
                 } else {
                     console.log("Handler " + result.handlerName + " is not defined");
                 }
             }
         } else if (event.postback) {
-            let payload = event.postback.payload.split(",");
-            if (payload[0] === "view_contacts") {
-                sendMessage({text: "OK, looking for your contacts at " + payload[2] + "..."}, sender);
-                salesforce.findContactsByAccount(payload[1]).then(contacts => sendMessage(formatter.formatContacts(contacts), sender));
-            } else if (payload[0] === "close_won") {
-                sendMessage({text: `OK, I closed the opportunity "${payload[2]}" as "Close Won". Way to go Christophe!`}, sender);
-            } else if (payload[0] === "close_lost") {
-                sendMessage({text: `I'm sorry to hear that. I closed the opportunity "${payload[2]}" as "Close Lost".`}, sender);
-            }
+            processPostback(event.postback);
         }
     }
     res.sendStatus(200);

@@ -2,13 +2,10 @@
 
 let readline = require('readline'),
     fs = require('fs'),
-    handlers,
     utterances;
 
 
-let init = (fileName, _handlers) => {
-
-    handlers = _handlers;
+let init = (fileName) => {
 
     utterances = [];
 
@@ -38,11 +35,6 @@ let match = text => {
         if (match) {
             var handler = utterances[i].handler;
             return {handler, match};
-            //if (handler && typeof handler === "function") {
-            //    handler(match);
-            //} else {
-            //    console.log("Handler " + utterances[i].handler + " is not defined");
-            //}
         } else {
             console.log('no match');
         }
