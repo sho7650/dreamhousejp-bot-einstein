@@ -108,8 +108,8 @@ let handlePost = (req, res) => {
                     console.log("Handler " + result.handlerName + " is not defined");
                 }
             }
-        } else if (sender, event.postback) {
-            processPostback(event.postback);
+        } else if (event.postback) {
+            processPostback(sender, event.postback);
         }
     }
     res.sendStatus(200);
