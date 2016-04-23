@@ -76,4 +76,4 @@ let formatAppointment = property => {
 };
 
 exports.formatProperties = formatProperties;
-exports.formatAppointments = formatAppointments;
+exports.formatAppointment = formatAppointment;
