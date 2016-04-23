@@ -67,7 +67,7 @@ handlers.searchHouse_Range = (sender, values) => {
     });
 };
 
-let processPostback = postback => {
+let processPostback = (sender, postback) => {
     let payload = postback.payload.split(",");
     if (payload[0] === "schedule_visit") {
         salesforce.findProperties({id: payload[1]}).then(properties => {
@@ -108,7 +108,7 @@ let handlePost = (req, res) => {
                     console.log("Handler " + result.handlerName + " is not defined");
                 }
             }
-        } else if (event.postback) {
+        } else if (sender, event.postback) {
             processPostback(event.postback);
         }
     }
