@@ -1,5 +1,7 @@
 "use strict";
 
+let moment = require("moment");
+
 let formatProperties = properties => {
     let elements = [];
     properties.forEach(property => {
@@ -42,7 +44,12 @@ let formatProperties = properties => {
 let formatAppointment = property => {
     console.log("####formatAppointment");
     console.log(property);
-    var options = ["Tuesday", "Wednesday", "Thursday"];
+    var options = [
+        moment().add(1, 'days').format('dddd MMMM Do') + ', 10am',
+        moment().add(2, 'days').format('dddd MMMM Do') + ', 9am',
+        moment().add(2, 'days').format('dddd MMMM Do') + ', 5pm',
+        moment().add(3, 'days').format('dddd MMMM Do') + ', 1pm',
+    ];
     let elements = [];
     elements.push({
         title: property.get("Title__c"),
