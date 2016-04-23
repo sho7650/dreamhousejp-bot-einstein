@@ -59,17 +59,17 @@ let formatAppointment = property => {
             {
                 "type": "postback",
                 "title": options[0],
-                "payload": "confirm_visit," + property.get("Address__c") + " " + property.get("City__c") + "," + options[0]
+                "payload": "confirm_visit," + property.get("Address__c") + " in " + property.get("City__c") + "," + options[0]
             },
             {
                 "type": "postback",
                 "title": options[1],
-                "payload": "confirm_visit," + property.get("Address__c") + " " + property.get("City__c") + "," + options[1]
+                "payload": "confirm_visit," + property.get("Address__c") + " in " + property.get("City__c") + "," + options[1]
             },
             {
                 "type": "postback",
                 "title": options[2],
-                "payload": "confirm_visit," + property.get("Address__c") + " " + property.get("City__c") + "," + options[2]
+                "payload": "confirm_visit," + property.get("Address__c") + " in " + property.get("City__c") + "," + options[2]
             }
         ]
     });
