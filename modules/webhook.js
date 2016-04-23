@@ -140,12 +140,14 @@ let handlePost = (req, res) => {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
             //processText(event.message.text, sender);
-            let {handlerName, matchValues} = processor.match(text);
-            let handler = handlers[handlerName];
-            if (handler && typeof handler === "function") {
-                handler(matchValues);
-            } else {
-                console.log("Handler " + handlerName + " is not defined");
+            let result = processor.match(text);
+            if (result) {
+                let handler = handlers[result.handlerName];
+                if (handler && typeof handler === "function") {
+                    handler(result.matchValues);
+                } else {
+                    console.log("Handler " + handlerName + " is not defined");
+                }
             }
         } else if (event.postback) {
             let payload = event.postback.payload.split(",");
