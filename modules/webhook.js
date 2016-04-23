@@ -25,21 +25,21 @@ let sendMessage = (message, recipient) => {
 
 let handlers = {};
 
-handlers.searchPropertyByPriceRange = (recipient, values) => {
+handlers.searchPropertyByPriceRange = (sender, values) => {
     sendMessage({text: `OK, looking for houses between ${values[1]} and ${values[2]}...`}, sender);
     //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
         //sendMessage(formatter.formatProperties(properties), sender);
     //});
 };
 
-handlers.searchProperty = (recipient) => {
+handlers.searchProperty = (sender) => {
     sendMessage({text: `OK, looking for houses for sale around you...`}, sender);
     //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
     //sendMessage(formatter.formatProperties(properties), sender);
     //});
 };
 
-handlers.searchPropertyByBedrooms = (recipient, values) => {
+handlers.searchPropertyByBedrooms = (sender, values) => {
     sendMessage({text: `OK, looking for houses with ${values[1]} bedrooms...`}, sender);
     //salesforce.findProperties({min: values[1], max: values[2]}).then(properties => {
     //sendMessage(formatter.formatProperties(properties), sender);
