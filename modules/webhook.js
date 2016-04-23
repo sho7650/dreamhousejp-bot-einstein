@@ -140,6 +140,7 @@ let handlePost = (req, res) => {
             sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
         } else if (event.message && event.message.text) {
             //processText(event.message.text, sender);
+            console.log('processing....');
             let result = processor.match(text);
             console.log(result);
             if (result) {
