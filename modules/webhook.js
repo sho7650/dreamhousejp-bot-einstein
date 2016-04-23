@@ -132,6 +132,7 @@ let handleGet = (req, res) => {
 };
 
 let handlePost = (req, res) => {
+    console.log('handlepost');
     let events = req.body.entry[0].messaging;
     for (let i = 0; i < events.length; i++) {
         let event = events[i];
