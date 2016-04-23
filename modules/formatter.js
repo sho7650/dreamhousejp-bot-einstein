@@ -69,7 +69,7 @@ let formatAppointment = property => {
             {
                 "type": "postback",
                 "title": options[2],
-                "payload": "confirm_visit," + property.getId() + "," + options[2]
+                "payload": "confirm_visit," + property.get("Address__c") + " " + property.get("City__c") + "," + options[2]
             }
         ]
     });
