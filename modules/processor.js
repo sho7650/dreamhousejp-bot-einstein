@@ -10,6 +10,8 @@ let init = (fileName, _handlers) => {
 
     handlers = _handlers;
 
+    utterances = [];
+
     const rl = readline.createInterface({
         input: fs.createReadStream(fileName)
     });
