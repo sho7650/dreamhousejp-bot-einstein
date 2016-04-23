@@ -36,7 +36,7 @@ let match = text => {
     for (var i=0; i<utterances.length; i++) {
         var match = text.match(utterances[i].utterance);
         if (match) {
-            var handler = handlers[utterances[i].handler];
+            var handler = utterances[i].handler;
             return {handler, match};
             //if (handler && typeof handler === "function") {
             //    handler(match);

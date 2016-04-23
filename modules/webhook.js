@@ -149,7 +149,7 @@ let handlePost = (req, res) => {
                 if (handler && typeof handler === "function") {
                     handler(result.matchValues);
                 } else {
-                    console.log("Handler " + handlerName + " is not defined");
+                    console.log("Handler " + result.handlerName + " is not defined");
                 }
             }
         } else if (event.postback) {
