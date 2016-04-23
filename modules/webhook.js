@@ -145,9 +145,9 @@ let handlePost = (req, res) => {
             let result = processor.match(event.message.text);
             console.log(result);
             if (result) {
-                let handler = handlers[result.handlerName];
+                let handler = handlers[result.handler];
                 if (handler && typeof handler === "function") {
-                    handler(result.matchValues);
+                    handler(result.match);
                 } else {
                     console.log("Handler " + result.handlerName + " is not defined");
                 }
