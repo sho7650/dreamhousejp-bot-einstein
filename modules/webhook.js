@@ -142,7 +142,7 @@ let handlePost = (req, res) => {
         } else if (event.message && event.message.text) {
             //processText(event.message.text, sender);
             console.log('processing....');
-            let result = processor.match(text);
+            let result = processor.match(event.message.text);
             console.log(result);
             if (result) {
                 let handler = handlers[result.handlerName];
