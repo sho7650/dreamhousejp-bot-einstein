@@ -45,10 +45,10 @@ let formatAppointment = property => {
     console.log("####formatAppointment");
     console.log(property);
     var options = [
-        moment().add(1, 'days').format('ddd MMM D') + ' 10am',
-        moment().add(2, 'days').format('ddd MMM D') + ' 9am',
-        moment().add(2, 'days').format('ddd MMM D') + ' 5pm',
-        moment().add(3, 'days').format('ddd MMM D') + ' 1pm',
+        moment().add(1, 'days').format('ddd MMM Do') + ', 10am',
+        moment().add(2, 'days').format('ddd MMM Do') + ', 9am',
+        moment().add(2, 'days').format('ddd MMM Do') + ', 5pm',
+        moment().add(3, 'days').format('ddd MMM Do') + ', 1pm',
     ];
     let elements = [];
     elements.push({
