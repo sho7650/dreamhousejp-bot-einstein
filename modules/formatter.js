@@ -40,7 +40,9 @@ let formatProperties = properties => {
 
 
 let formatAppointment = property => {
-    var dates = ["Tuesday", "Wednesday", "Thursday"];
+    console.log("####formatAppointment");
+    console.log(property);
+    var options = ["Tuesday", "Wednesday", "Thursday"];
     let elements = [];
     elements.push({
         title: property.get("Title__c"),
@@ -49,18 +51,18 @@ let formatAppointment = property => {
         "buttons": [
             {
                 "type": "postback",
-                "title": dates[0],
-                "payload": "confirm_visit," + property.getId() + "," + dates[0]
+                "title": options[0],
+                "payload": "confirm_visit," + property.getId() + "," + options[0]
             },
             {
                 "type": "postback",
-                "title": dates[1],
-                "payload": "confirm_visit," + property.getId() + "," + dates[1]
+                "title": options[1],
+                "payload": "confirm_visit," + property.getId() + "," + options[1]
             },
             {
                 "type": "postback",
-                "title": dates[2],
-                "payload": "confirm_visit," + property.getId() + "," + dates[2]
+                "title": options[2],
+                "payload": "confirm_visit," + property.getId() + "," + options[2]
             }
         ]
     });
