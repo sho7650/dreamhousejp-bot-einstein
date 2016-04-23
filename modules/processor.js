@@ -1,3 +1,5 @@
+"use strict";
+
 let readline = require('readline'),
     fs = require('fs'),
     handlers,
