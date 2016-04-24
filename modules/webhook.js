@@ -67,24 +67,38 @@ handlers.searchHouse_Range = (sender, values) => {
     });
 };
 
-let processPostback = (sender, postback) => {
-    let payload = postback.payload.split(",");
-    if (payload[0] === "schedule_visit") {
-        salesforce.findProperties({id: payload[1]}).then(properties => {
-            sendMessage({text: "OK, here is what I found. Select one of the times below"}, sender);
-            sendMessage(formatter.formatAppointment(properties[0]), sender);
-        });
-    } else if (payload[0] === "contact_broker") {
-        sendMessage({text: "Here is the broker information for this property"}, sender);
-        sendMessage(formatter.formatBroker(), sender);
-    } else if (payload[0] === "confirm_visit") {
-        sendMessage({text: `OK, your appointment is confirmed for ${payload[2]}. ${payload[1]}.`}, sender);
-    }
-}
+//let processPostback = (sender, postback) => {
+//    let payload = postback.payload.split(",");
+//    if (payload[0] === "schedule_visit") {
+//        salesforce.findProperties({id: payload[1]}).then(properties => {
+//            sendMessage({text: "OK, here is what I found. Select one of the times below"}, sender);
+//            sendMessage(formatter.formatAppointment(properties[0]), sender);
+//        });
+//    } else if (payload[0] === "contact_broker") {
+//        sendMessage({text: "Here is the broker information for this property"}, sender);
+//        sendMessage(formatter.formatBroker(), sender);
+//    } else if (payload[0] === "confirm_visit") {
+//        sendMessage({text: `OK, your appointment is confirmed for ${payload[2]}. ${payload[1]}.`}, sender);
+//    }
+//}
 
-processor.init("dictionary.txt", handlers);
+let postbacks = {};
 
+postbacks.schedule_visit = (sender, values) => {
+    salesforce.findProperties({id: values[1]}).then(properties => {
+        sendMessage({text: "OK, here is what I found. Select one of the times below"}, sender);
+        sendMessage(formatter.formatAppointment(properties[0]), sender);
+    });
+};
 
+postbacks.contact_broker = (sender, values) => {
+    sendMessage({text: "Here is the broker information for this property"}, sender);
+    sendMessage(formatter.formatBroker(), sender);
+};
+
+postbacks.confirm_visit = (sender, values) => {
+    sendMessage({text: `OK, your appointment is confirmed for ${values[2]}. ${values[1]}.`}, sender);
+};
 
 let handleGet = (req, res) => {
     if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
@@ -112,11 +126,19 @@ let handlePost = (req, res) => {
                 }
             }
         } else if (event.postback) {
-            processPostback(sender, event.postback);
+            let payload = postback.payload.split(",");
+            let postback = payload[0];
+            if (postback && typeof postback === "function") {
+                postback(sender, payload);
+            } else {
+                console.log("Postback " + postback + " is not defined");
+            }
         }
     }
     res.sendStatus(200);
 };
+
+processor.init("dictionary.txt");
 
 exports.handleGet = handleGet;
 exports.handlePost = handlePost;
