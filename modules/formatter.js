@@ -88,7 +88,7 @@ let formatBroker = broker => {
     let elements = [];
     elements.push({
         title: "Caroline Kingsley",
-        subtitle: "Senior Broker",
+        subtitle: "Senior Broker  · 617-219-6363 · ckingsley@dreamhouse.com",
         "image_url": "https://s3-us-west-1.amazonaws.com/sfdc-demo/messenger/caroline_500x260.png",
         "buttons": [
             {
