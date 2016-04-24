@@ -126,7 +126,7 @@ let handlePost = (req, res) => {
                 }
             }
         } else if (event.postback) {
-            let payload = postback.payload.split(",");
+            let payload = event.postback.payload.split(",");
             let postback = payload[0];
             if (postback && typeof postback === "function") {
                 postback(sender, payload);
