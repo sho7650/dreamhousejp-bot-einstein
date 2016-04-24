@@ -100,6 +100,10 @@ postbacks.confirm_visit = (sender, values) => {
     sendMessage({text: `OK, your appointment is confirmed for ${values[2]}. ${values[1]}.`}, sender);
 };
 
+postbacks.contact_me = (sender, values) => {
+    sendMessage({text: `OK, I asked Caroline Kingsley to contact you. She will get in touch with you soon.`}, sender);
+};
+
 let handleGet = (req, res) => {
     if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);

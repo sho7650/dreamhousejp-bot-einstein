@@ -94,7 +94,7 @@ let formatBroker = broker => {
             {
                 "type": "postback",
                 "title": "Contact Me",
-                "payload": "Contact me"
+                "payload": "contact_me"
             }]
     });
     return {
