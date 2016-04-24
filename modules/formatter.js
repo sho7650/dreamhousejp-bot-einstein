@@ -98,7 +98,7 @@ let formatBroker = broker => {
             },
             {
                 "type": "web_url",
-                "url": "tel:617-584-9824",
+                "url": "http://cnn.com",
                 "title": "Call"
             }]
     });
