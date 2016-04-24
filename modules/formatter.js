@@ -93,13 +93,8 @@ let formatBroker = broker => {
         "buttons": [
             {
                 "type": "postback",
-                "title": "View Notes",
-                "payload": "view_notes,"
-            },
-            {
-                "type": "web_url",
-                "url": "http://cnn.com",
-                "title": "Call"
+                "title": "Contact Me",
+                "payload": "Contact me"
             }]
     });
     return {
