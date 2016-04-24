@@ -17,7 +17,7 @@ let formatProperties = properties => {
                     },
                     {
                         "type": "postback",
-                        "title": "Contact broker",
+                        "title": "View broker info",
                         "payload": "contact_broker," + property.getId()
                     },
                     {
@@ -42,13 +42,12 @@ let formatProperties = properties => {
 
 
 let formatAppointment = property => {
-    console.log("####formatAppointment");
-    console.log(property);
     var options = [
         moment().add(1, 'days').format('ddd MMM Do') + ' at 10am',
         moment().add(2, 'days').format('ddd MMM Do') + ' at 9am',
         moment().add(2, 'days').format('ddd MMM Do') + ' at 5pm',
         moment().add(3, 'days').format('ddd MMM Do') + ' at 1pm',
+        moment().add(3, 'days').format('ddd MMM Do') + ' at 6pm',
     ];
     let elements = [];
     elements.push({
