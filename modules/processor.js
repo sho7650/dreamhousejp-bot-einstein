@@ -2,32 +2,25 @@
 
 let readline = require('readline'),
     fs = require('fs'),
-    utterances;
-
-
-let init = (fileName) => {
-
+    fileName = 'dictionary.txt',
     utterances = [];
 
-    const rl = readline.createInterface({
-        input: fs.createReadStream(fileName)
-    });
+const rl = readline.createInterface({
+    input: fs.createReadStream(fileName)
+});
 
-    rl.on('line', (line) => {
-        var index = line.indexOf(' ');
-        if (index>0) {
-            var handler = line.substring(0, index);
-            var utterance = line.substring(index + 1);
-            utterances.push({utterance: utterance, handler:handler});
-        }
-    });
+rl.on('line', (line) => {
+    var index = line.indexOf(' ');
+    if (index>0) {
+        var handler = line.substring(0, index);
+        var utterance = line.substring(index + 1);
+        utterances.push({utterance: utterance, handler:handler});
+    }
+});
 
-    rl.on('close', () => {
-        console.log('end of file');
-    });
-
-};
-
+rl.on('close', () => {
+    console.log('end of file');
+});
 
 let match = text => {
     for (var i=0; i<utterances.length; i++) {
@@ -41,5 +34,4 @@ let match = text => {
     }
 };
 
-exports.init = init;
 exports.match = match;
