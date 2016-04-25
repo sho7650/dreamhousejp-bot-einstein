@@ -54,7 +54,7 @@ let formatAppointment = property => {
             "type": "template",
             "payload": {
                 "template_type": "button",
-                "text": `Scheduling a visit at ${property.get("Address__c")} in ${property.get("City__c")}. Select one of the available appointments below:`,
+                "text": `Select one of the available appointments below at ${property.get("Address__c")} in ${property.get("City__c")}.`,
                 "buttons": [
                     {
                         "type": "postback",
