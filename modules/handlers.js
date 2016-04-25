@@ -19,21 +19,21 @@ exports.searchHouse_City = (sender, values) => {
 };
 
 exports.searchHouse_Bedrooms_City_Range = (sender, values) => {
-    messenger.send({text: `OK, looking for values[1] bedrooms in ${values[2]} between ${values[3]} and ${values[4]}`}, sender);
+    messenger.send({text: `OK, looking for ${values[1]} bedrooms in ${values[2]} between ${values[3]} and ${values[4]}`}, sender);
     salesforce.findProperties({bedrooms: values[1], city: values[2]}).then(properties => {
         messenger.send(formatter.formatProperties(properties), sender);
     });
 };
 
 exports.searchHouse_Bedrooms_City = (sender, values) => {
-    messenger.send({text: `OK, looking for values[1] bedroom houses in ${values[2]}`}, sender);
+    messenger.send({text: `OK, looking for ${values[1]} bedroom houses in ${values[2]}`}, sender);
     salesforce.findProperties({bedrooms: values[1], city: values[2]}).then(properties => {
         messenger.send(formatter.formatProperties(properties), sender);
     });
 };
 
 exports.searchHouse_Bedrooms = (sender, values) => {
-    messenger.send({text: `OK, looking for values[1] bedroom houses`}, sender);
+    messenger.send({text: `OK, looking for ${values[1]} bedrooms`}, sender);
     salesforce.findProperties({bedrooms: values[1]}).then(properties => {
         messenger.send(formatter.formatProperties(properties), sender);
     });
