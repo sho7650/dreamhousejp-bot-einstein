@@ -21,5 +21,5 @@ exports.confirm_visit = (sender, values) => {
 };
 
 exports.contact_me = (sender, values) => {
-    messenger.send({text: `OK, I asked Caroline to contact you. She will get in touch with you shortly.`}, sender);
+    messenger.send({text: `Thanks for your interest. I asked a broker to contact you asap.`}, sender);
 };
