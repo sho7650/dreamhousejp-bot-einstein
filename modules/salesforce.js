@@ -80,12 +80,35 @@ let findPriceChanges = () => {
                     Parent.baths__c,
                     Parent.picture__c
                 FROM property__history
-                WHERE field = 'Price__c'`;
+                WHERE field = 'Price__c'
+                LIMIT 3`;
         org.query({query: q}, (err, resp) => {
             if (err) {
                 reject("An error as occurred");
             } else {
                 resolve(resp.records);
+            }
+        });
+    });
+};
+
+
+let createCase = propertyId => {
+
+    return new Promise((resolve, reject) => {
+        let c = nforce.createSObject('Case');
+        c.set('subject', 'Contact Facebook Customer');
+        c.set('description', 'description');
+        c.set('origin', 'Facebook Bot');
+        c.set('status', 'New');
+        c.set('Property__c', propertyId);
+
+        org.insert({sobject: c}, err => {
+            if (err) {
+                console.error(err);
+                reject("An error occurred while creating a case");
+            } else {
+                resolve(c);
             }
         });
     });
@@ -97,3 +120,4 @@ login();
 exports.org = org;
 exports.findProperties = findProperties;
 exports.findPriceChanges = findPriceChanges;
+exports.createCase = createCase;
