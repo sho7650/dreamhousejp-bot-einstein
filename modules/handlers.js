@@ -56,6 +56,7 @@ exports.priceChanges = (sender, values) => {
 exports.hi = (sender) => {
     console.log("### sender");
     console.log(sender);
-    //messenger.getUserInfo({text: `OK, looking for recent price changes...`}, sender);
-    messenger.send({text: `Hello!`}, sender);
+    messenger.getUserInfo(sender).then(response => {
+        messenger.send({text: `Hello!`}, sender);
+    });
 };
