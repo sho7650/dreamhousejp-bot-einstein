@@ -81,6 +81,7 @@ let findPriceChanges = () => {
                     Parent.picture__c
                 FROM property__history
                 WHERE field = 'Price__c'
+                ORDER BY CreatedDate DESC
                 LIMIT 3`;
         org.query({query: q}, (err, resp) => {
             if (err) {

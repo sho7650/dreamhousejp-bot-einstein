@@ -1,6 +1,7 @@
 "use strict";
 
-let moment = require("moment");
+let moment = require("moment"),
+    numeral = require("numeral");
 
 exports.formatProperties = properties => {
     let elements = [];
@@ -46,7 +47,7 @@ exports.formatPriceChanges = priceChanges => {
             let property = priceChange.get("Parent");
             elements.push({
                 title: `${property.Address__c}, ${property.City__c} ${property.State__c}`,
-                subtitle: `Old price: ${priceChange.get("OldValue")} New price: ${priceChange.get("NewValue")} on ${priceChange.get("CreatedDate")}`,
+                subtitle: `Old price: ${numeral(priceChange.get("OldValue")).format('$0,0')} New price: ${numeral(priceChange.get("NewValue")).format('$0,0')} on ${priceChange.get("CreatedDate")}`,
                 "image_url": property.Picture__c,
                 "buttons": [
                     {
