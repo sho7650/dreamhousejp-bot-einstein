@@ -45,8 +45,8 @@ exports.formatPriceChanges = priceChanges => {
     priceChanges.forEach(priceChange => {
             let property = priceChange.get("Parent");
             elements.push({
-                title: `${property.Address__c} ${property.City__c} ${property.State__c}`,
-                subtitle: `Old price: ${priceChange.get("OldValue")}  New price: ${priceChange.get("NewValue")}`,
+                title: `${property.Address__c}, ${property.City__c} ${property.State__c}`,
+                subtitle: `Old price: ${priceChange.get("OldValue")} New price: ${priceChange.get("NewValue")} on ${priceChange.get("CreatedDate")`,
                 "image_url": property.Picture__c,
                 "buttons": [
                     {
