@@ -52,29 +52,40 @@ let findProperties = (params) => {
                 FROM property__c
                 ${where}
                 LIMIT 5`;
-        console.log(q);
         org.query({query: q}, (err, resp) => {
             if (err) {
                 reject("An error as occurred");
             } else {
-                let properties = resp.records;
-                resolve(properties);
+                resolve(resp.records);
             }
         });
     });
 
 };
 
-let findContact = name => {
-
+let findPriceChanges = () => {
     return new Promise((resolve, reject) => {
-        let q = "SELECT Id, Name, Title, Account.Name, Phone, MobilePhone, Email, Picture_URL__c FROM Contact WHERE Name LIKE '%" + name + "%' LIMIT 5";
+        let q = `SELECT
+                    OldValue,
+                    NewValue,
+                    CreatedDate,
+                    Field,
+                    Parent.Id,
+                    Parent.title__c,
+                    Parent.address__c,
+                    Parent.city__c,
+                    Parent.state__c,
+                    Parent.price__c,
+                    Parent.beds__c,
+                    Parent.baths__c,
+                    Parent.picture__c
+                FROM property__history
+                WHERE field = 'Price__c'`;
         org.query({query: q}, (err, resp) => {
             if (err) {
                 reject("An error as occurred");
-            } else if (resp.records && resp.records.length>0) {
-                let contacts = resp.records;
-                resolve(contacts);
+            } else {
+                resolve(resp.records);
             }
         });
     });
@@ -85,4 +96,4 @@ login();
 
 exports.org = org;
 exports.findProperties = findProperties;
-exports.findContact = findContact;
+exports.findPriceChanges = findPriceChanges;

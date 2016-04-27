@@ -2,7 +2,7 @@
 
 let moment = require("moment");
 
-let formatProperties = properties => {
+exports.formatProperties = properties => {
     let elements = [];
     properties.forEach(property => {
             elements.push({
@@ -40,8 +40,47 @@ let formatProperties = properties => {
     };
 };
 
+exports.formatPriceChanges = priceChanges => {
+    let elements = [];
+    priceChanges.forEach(priceChange => {
+            let property = priceChange.get("Parent");
+            elements.push({
+                title: `${property.Address__c} ${property.City__c} ${property.State__c}`,
+                subtitle: `Old price: ${priceChange.get("OldValue")}  New price: ${priceChange.get("NewValue")}`,
+                "image_url": property.Picture__c,
+                "buttons": [
+                    {
+                        "type": "postback",
+                        "title": "Schedule visit",
+                        "payload": "schedule_visit," + property.Id
+                    },
+                    {
+                        "type": "postback",
+                        "title": "View broker info",
+                        "payload": "contact_broker," + property.Id
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Contact me",
+                        "payload": "contact_me," + property.Id
+                    }
+                ]
+            })
+        }
+    );
+    return {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": elements
+            }
+        }
+    };
+};
 
-let formatAppointment = property => {
+
+exports.formatAppointment = property => {
     var options = [
         moment().add(1, 'days').format('ddd MMM Do') + ' at 10am',
         moment().add(2, 'days').format('ddd MMM Do') + ' at 9am',
@@ -76,7 +115,7 @@ let formatAppointment = property => {
     };
 };
 
-let formatBroker = broker => {
+exports.formatBroker = broker => {
     let elements = [];
     elements.push({
         title: "Caroline Kingsley",
@@ -99,7 +138,3 @@ let formatBroker = broker => {
         }
     };
 };
-
-exports.formatProperties = formatProperties;
-exports.formatAppointment = formatAppointment;
-exports.formatBroker = formatBroker;

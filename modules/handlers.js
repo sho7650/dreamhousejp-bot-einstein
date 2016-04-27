@@ -45,3 +45,10 @@ exports.searchHouse_Range = (sender, values) => {
         messenger.send(formatter.formatProperties(properties), sender);
     });
 };
+
+exports.priceChanges = (sender, values) => {
+    messenger.send({text: `OK, looking for recent price changes...`}, sender);
+    salesforce.findPriceChanges().then(priceChanges => {
+        messenger.send(formatter.formatPriceChanges(priceChanges), sender);
+    });
+};

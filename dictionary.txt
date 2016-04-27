@@ -9,3 +9,4 @@ searchHouse search house
 searchHouse looking for house
 searchHouse find house
 searchHouse for sale
+priceChanges price changes
