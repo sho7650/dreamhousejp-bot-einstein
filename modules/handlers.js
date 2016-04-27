@@ -54,15 +54,11 @@ exports.priceChanges = (sender, values) => {
 };
 
 exports.hi = (sender) => {
-    console.log("### sender");
-    console.log(sender);
     messenger.getUserInfo(sender).then(response => {
         messenger.send({text: `Hello, ${response.first_name}!`}, sender);
     });
 };
 
 exports.help = (sender) => {
-    messenger.getUserInfo(sender).then(response => {
-        messenger.send({text: `You can ask me questions like "Find houses in Boston", "3 bedrooms in Boston", "3 bedrooms in Boston between 500000 and 750000", "show me price changes"`}, sender);
-    });
+    messenger.send({text: `You can ask me questions like "Find houses in Boston", "3 bedrooms in Boston", "3 bedrooms in Boston between 500000 and 750000", "show me price changes"`}, sender);
 };
