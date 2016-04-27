@@ -57,6 +57,6 @@ exports.hi = (sender) => {
     console.log("### sender");
     console.log(sender);
     messenger.getUserInfo(sender).then(response => {
-        messenger.send({text: `Hello, ${response.first.name}!`}, sender);
+        messenger.send({text: `Hello, ${response.first_name}!`}, sender);
     });
 };
