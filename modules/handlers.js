@@ -52,3 +52,10 @@ exports.priceChanges = (sender, values) => {
         messenger.send(formatter.formatPriceChanges(priceChanges), sender);
     });
 };
+
+exports.hi = (sender) => {
+    console.log("### sender");
+    console.log(sender);
+    //messenger.getUserInfo({text: `OK, looking for recent price changes...`}, sender);
+    messenger.send({text: `Hello!`}, sender);
+};
