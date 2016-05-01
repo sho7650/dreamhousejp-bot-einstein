@@ -6,7 +6,6 @@ let salesforce = require('./salesforce'),
 
 exports.schedule_visit = (sender, values) => {
     salesforce.findProperties({id: values[1]}).then(properties => {
-        messenger.send({text: "OK, here is what I found. Select one of the times below"}, sender);
         messenger.send(formatter.formatAppointment(properties[0]), sender);
     });
 };
