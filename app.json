@@ -2,14 +2,6 @@
   "name": "Salesforce Bot for Messenger",
   "description": "Sample Salesforce Bot for Messenger",
   "env": {
-    "PAGE_TOKEN": {
-        "description": "Facebook Messenger Access Token",
-        "value":""
-    },
-    "VERIFY_TOKEN": {
-        "description": "Facebook Verify Token",
-        "value":""
-    },
     "SF_CLIENT_ID": {
         "description": "Client Id of your Salesforce Connected App",
         "value":""
@@ -26,17 +18,13 @@
         "description": "Salesforce password for your integration user",
         "value":""
     },
-    "OPPORTUNITY_TOKEN": {
-        "description": "Slack token for the pipeline slash command",
-        "value":""
+    "VERIFY_TOKEN": {
+      "description": "Facebook Verify Token",
+      "value":""
     },
-    "CONTACT_TOKEN": {
-        "description": "Slack token for the contact slash command",
-        "value":""
-    },
-    "CASE_TOKEN": {
-        "description": "Slack token for the case slash command",
-        "value":""
+    "PAGE_TOKEN": {
+      "description": "Facebook Messenger Access Token",
+      "value":""
     }
   }
 }
