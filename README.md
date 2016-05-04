@@ -27,9 +27,9 @@ Click the button below:
     - When asked for the Verify Token, enter the passphrase you entered when you deployed the Heoku app
     - When the page access token is generated, login to the Heroku Dashboard, and set the Heroku PAGE_TOKEN config variable to the value of that token.           
     - Don't forget the "Subscribe the App to the Page" step.
-    ```
-    curl -ik -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=<token>"
-    ```
+        ```
+        curl -ik -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=<token>"
+        ```
     - You don't need to implement the Receive Messages step as the webhook is already implemented in the Heroku app.
     
 1. In Messenger, search for your bot in the search box, type Help to see what you can ask, and start chatting with your bot!
