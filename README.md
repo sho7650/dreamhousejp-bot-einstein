@@ -6,9 +6,11 @@
 
 1. Create a connected app
 
-### Deploy the Bot Implementation
+### Deploy the Messenger Bot
 
-Click the button below:
+Click the button below to deploy the Messenger bot on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 - Enter the client id and client secret for your connected app
 - Enter the user name and password for your integration user
