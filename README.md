@@ -1,4 +1,4 @@
-## Salesforce Bot for Facebook Messenger
+# Salesforce Bot for Facebook Messenger
 
 A Salesforce-powered bot for the DreamHouse sample application.
 
