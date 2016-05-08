@@ -1,29 +1,30 @@
 {
-  "name": "Salesforce Bot for Messenger",
-  "description": "Sample Salesforce Bot for Messenger",
+  "name": "DreamHouse Bot for Messenger",
+  "description": "Salesforce-powered Bot for Messenger in the DreamHouse sample app",
   "env": {
-    "SF_CLIENT_ID": {
-        "description": "Client Id of your Salesforce Connected App",
-        "value":""
+    "FB_PAGE_TOKEN": {
+      "description": "Facebook Messenger Access Token",
+      "value":"",
+      "required":false
     },
-    "SF_CLIENT_SECRET": {
-        "description": "Secret of your Salesforce Connected App",
-        "value":""
-    },
-    "SF_USER_NAME": {
-        "description": "Salesforce username for your integration user",
-        "value":""
-    },
-    "SF_PASSWORD": {
-        "description": "Salesforce password for your integration user",
-        "value":""
-    },
-    "VERIFY_TOKEN": {
+    "FB_VERIFY_TOKEN": {
       "description": "Facebook Verify Token",
       "value":""
     },
-    "PAGE_TOKEN": {
-      "description": "Facebook Messenger Access Token",
+    "SF_CLIENT_ID": {
+      "description": "Consumer Key of your Salesforce Connected App",
+      "value":""
+    },
+    "SF_CLIENT_SECRET": {
+      "description": "Consumer Secret of your Salesforce Connected App",
+      "value":""
+    },
+    "SF_USER_NAME": {
+      "description": "Salesforce username for your integration user",
+      "value":""
+    },
+    "SF_PASSWORD": {
+      "description": "Salesforce password for your integration user",
       "value":""
     }
   }
