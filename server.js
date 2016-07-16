@@ -16,7 +16,7 @@ app.get('/webhook', (req, res) => {
     if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
     } else {
-        res.send('Error, wrong validation token');
+        res.send('エラー : FacebookのVerifyトークンが不正です');
     }
 });
 
@@ -26,7 +26,7 @@ app.post('/webhook', (req, res) => {
         let event = events[i];
         let sender = event.sender.id;
         if (process.env.MAINTENANCE_MODE && ((event.message && event.message.text) || event.postback)) {
-            sendMessage({text: `Sorry I'm taking a break right now.`}, sender);
+            sendMessage({text: `申し訳ござませんが、現在メンテナンスモード中です。`}, sender);
         } else if (event.message && event.message.text) {
             let result = processor.match(event.message.text);
             if (result) {
@@ -34,7 +34,7 @@ app.post('/webhook', (req, res) => {
                 if (handler && typeof handler === "function") {
                     handler(sender, result.match);
                 } else {
-                    console.log("Handler " + result.handlerName + " is not defined");
+                    console.log("Handler " + result.handlerName + " は定義されていません");
                 }
             }
         } else if (event.postback) {
@@ -43,7 +43,7 @@ app.post('/webhook', (req, res) => {
             if (postback && typeof postback === "function") {
                 postback(sender, payload);
             } else {
-                console.log("Postback " + postback + " is not defined");
+                console.log("Postback " + postback + " は定義されていません");
             }
         }
     }
@@ -51,5 +51,5 @@ app.post('/webhook', (req, res) => {
 });
 
 app.listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
+    console.log('xpress serverが起動 - ポート : ' + app.get('port'));
 });

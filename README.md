@@ -1,55 +1,57 @@
-# Salesforce Bot for Facebook Messenger
+# Facebook Messenger 用の Salesforce Bot
 
-A Salesforce-powered bot for the DreamHouse sample application.
+DreamHouse サンプルアプリケーションで使用する、Salesforce ベースのBotです。
 
-Follow the instructions below to create your own instance of the bot:
+Botのインスタンスを作成するには、以下の手順を実行します。
 
-### Step 1: Install the DreamHouse App
+### ステップ 1：DreamHouse アプリをインストールする
 
-If you haven't already done so, follow [these instructions](http://dreamhouse-site.herokuapp.com/installation/) to install the DreamHouse sample application.
+DreamHouse サンプルアプリケーションをまだインストールしていない場合は、[この手順](http://dreamhouseappjp.io/installation/)を実行してインストールします。
 
-### Step 2: Create a Connected App
+### ステップ 2：接続アプリケーションを作成する
 
-If you haven't already done so, follow the steps below to create a Salesforce connected app:
+Salesforce 接続アプリケーションをまだ作成していない場合は、以下の手順を実行して作成します。
 
-1. In Salesforce Setup, type **Apps** in the quick find box, and click the **Apps** link
+1. Salesforce の［設定］で、クイック検索ボックスに「**アプリ**」と入力して［**アプリケーション**］リンクをクリックします。
 
-1. In the **Connected Apps** section, click **New**, and define the Connected App as follows:
+1. ［**接続アプリケーション**］セクションで、［**新規**］をクリックし、次のように接続アプリケーションを定義します。
 
-    - Connected App Name: MyConnectedApp (or any name you want)
-    - API Name: MyConnectedApp
-    - Contact Email: enter your email address
-    - Enabled OAuth Settings: Checked
-    - Callback URL: http://localhost:8200/oauthcallback.html (You'll change this later)
-    - Selected OAuth Scopes: Full Access (full)
-    - Click **Save**
+    - 接続アプリケーション名：DreamhouseJpMessengerBot（または任意の名前）
+    - API 参照名：DreamhouseJpMessengerBot
+    - 取引先責任者メール：自分のメールアドレスを入力します。
+    - OAuth 設定の有効化：チェックボックスをオンにします。
+    - コールバック URL：http://localhost:8200/oauthcallback.html
+    - 選択した OAuth 範囲：フルアクセス（full）
+    - ［**保存**］をクリックします。
 
-### Step 3: Deploy the Messenger Bot
+### ステップ 3：Messenger ボットをデプロイする
 
-1. Make sure you are logged in to the [Heroku Dashboard](https://dashboard.heroku.com/)
-1. Click the button below to deploy the Messenger bot on Heroku:
+1. [Heroku ダッシュボード](https://dashboard.heroku.com/)にログインしていることを確認します。
+1. 下のボタンをクリックして、Messenger Bot を Heroku にデプロイします。
 
     [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-1. Fill in the config variables as described.
+1. 以下の通りに環境変数を設定します。
 
-    - Leave **FB_PAGE_TOKEN** blank for now
-    - For **FB_VERIFY_TOKEN**, enter a passphrase of your choice. You'll have to enter the same passphrase when you create the webhook in Facebook.
-    - For **SF_CLIENT_ID**, enter the Consumer Key of your Salesforce Connected App
-    - For **SF_CLIENT_SECRET**, enter the Consumer Secret of your Salesforce Connected App
-    - For **SF_USER_NAME**, enter the the username of your Salesforce integration user
-    - For **SF_PASSWORD**, enter the the username of your Salesforce integration user
+    - ［**FB_PAGE_TOKEN**］：ここでは空白のままにします。
+    - ［**FB_VERIFY_TOKEN**］：任意のパスフレーズを入力します。Facebook で Web フックを作成するときに同じパスフレーズを入力する必要があります。
+    - ［**SF_CLIENT_ID**］：Salesforce 接続アプリケーションのコンシューマキーを入力します。
+    - ［**SF_CLIENT_SECRET**］：Salesforce 接続アプリケーションのコンシューマの秘密を入力します。
+    - ［**SF_USER_NAME**］：Salesforce 統合ユーザーのユーザー名を入力します。
+    - ［**SF_PASSWORD**］：Salesforce 統合ユーザーのパスワードを入力します。
 
-### Step 4: Create a Facebook App
+1. Salesforceの [**接続アプリケーション**］セクションにある、コールバック URLをデプロイしたHerokuアプリのドメイン http://yourappname.herokuapp.com/oauthcallback.html へ変更します。
 
-1. Follow [these instructions](https://developers.facebook.com/docs/messenger-platform/quickstart) to create a Facebook app. You'll have to create a Facebook page, a Facebook application, and configure Messenger for your application.
+### ステップ 4：Facebook アプリを作成する
 
-    - When asked for a **Callback URL**, enter the URL of the Heroku app you just deployed followed by /webhook. For example:
+1. [この手順](https://developers.facebook.com/docs/messenger-platform/quickstart?locale=ja_JP)を実行して、Facebook アプリを作成します。Facebook ページ、Facebook アプリケーションを作成し、アプリケーション用の Messenger を構成する必要があります。
+
+    - **コールバック URL** の入力を求められたら、デプロイした Heroku アプリの URL を入力し、末尾に /webhook を付加します。次に例を示します。
         ```
         https://myapp.herokuapp.com/webhook
         ```
-    - When the Page Access Token is generated, login to the Heroku Dashboard, and set the Heroku **FB_PAGE_TOKEN** config variable to the value of that token (**Setting>Reveal Config Vars**)
-    - When asked for the **Verify Token**, enter the value you entered for the **FB_VERIFY_TOKEN** config variable when you deployed the Heroku app.
-    - Make sure you select a page in the **Select a page to subscribe your webhook...** dropdown
-    
-1. Visit the Facebook page you created in the previous step, and click the **Message** button. Type **help** in the chat bot. You can continue the conversation with the bot in the Messenger app on your phone or in the browser (http://messenger.com).
+    - ページアクセストークンが生成されたら、Heroku ダッシュボードにログインし、Heroku の **FB_PAGE_TOKEN** 環境変数にそのトークンの値を設定します（［**Setting**］>［**Reveal Config Vars**］）
+    - **トークンの確認** を求められたら、Heroku アプリをデプロイするときに **FB_VERIFY_TOKEN** 環境変数に入力したのと同じ値を入力します。
+    - ［**Select a page to subscribe your webhook...**］ドロップダウンでページを選択します。
+
+1. 前のステップで作成した Facebook ページにアクセスし、［**Message**］ボタンをクリックします。チャットBotに「**help**」と入力します。Botとの会話は、スマートフォンの Messenger アプリでもブラウザでも（http://messenger.com）続けることができます。

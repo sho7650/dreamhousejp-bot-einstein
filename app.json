@@ -1,30 +1,30 @@
 {
-  "name": "DreamHouse Bot for Messenger",
-  "description": "Salesforce-powered Bot for Messenger in the DreamHouse sample app",
+  "name": "DreamHouseJP Bot for Messenger",
+  "description": "SalesforceによるFacebook メッセンジャーBotアプリケーション : Dreamhouseサンプル",
   "env": {
     "FB_PAGE_TOKEN": {
-      "description": "Facebook Messenger Access Token",
+      "description": "Facebook Messenger アクセストークン",
       "value":"",
       "required":false
     },
     "FB_VERIFY_TOKEN": {
-      "description": "Facebook Verify Token",
+      "description": "Facebook ベリファイトークン",
       "value":""
     },
     "SF_CLIENT_ID": {
-      "description": "Consumer Key of your Salesforce Connected App",
+      "description": "Salesforce接続アプリケーションのコンシューマキー",
       "value":""
     },
     "SF_CLIENT_SECRET": {
-      "description": "Consumer Secret of your Salesforce Connected App",
+      "description": "Salesforce接続アプリケーションのコンシューマシークレット",
       "value":""
     },
     "SF_USER_NAME": {
-      "description": "Salesforce username for your integration user",
+      "description": "インテグレーション用のSalesforceユーザ名",
       "value":""
     },
     "SF_PASSWORD": {
-      "description": "Salesforce password for your integration user",
+      "description": "インテグレーション用のSalesforceユーザのパスワード",
       "value":""
     }
   }

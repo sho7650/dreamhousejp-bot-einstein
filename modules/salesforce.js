@@ -48,7 +48,8 @@ let findProperties = (params) => {
                     price__c,
                     beds__c,
                     baths__c,
-                    picture__c
+                    picture__c,
+                    broker__c
                 FROM property__c
                 ${where}
                 LIMIT 5`;
@@ -61,6 +62,27 @@ let findProperties = (params) => {
         });
     });
 
+};
+
+let getBroker = (brokerId) => {
+  return new Promise((resolve, reject) => {
+      let q = `SELECT id,
+                  name,
+                  title__c,
+                  picture__c,
+                  phone__c,
+                  email__c
+              FROM broker__c
+              WHERE id = '${brokerId}'
+              LIMIT 1`;
+      org.query({query: q}, (err, resp) => {
+          if (err) {
+              reject("An error as occurred");
+          } else {
+              resolve(resp.records[0]);
+          }
+      });
+  });
 };
 
 let findPriceChanges = () => {
@@ -94,14 +116,16 @@ let findPriceChanges = () => {
 };
 
 
-let createCase = (propertyId, customerName, customerId) => {
+
+
+let createCase = (topicName,propertyId,customerName,customerId) => {
 
     return new Promise((resolve, reject) => {
         let c = nforce.createSObject('Case');
-        c.set('subject', `Contact ${customerName} (Facebook Customer)`);
+        c.set('subject', `${topicName} : ${customerName} (Facebook経由)`);
         c.set('description', "Facebook id: " + customerId);
         c.set('origin', 'Facebook Bot');
-        c.set('status', 'New');
+        c.set('status', '新規');
         c.set('Property__c', propertyId);
 
         org.insert({sobject: c}, err => {
@@ -113,12 +137,12 @@ let createCase = (propertyId, customerName, customerId) => {
             }
         });
     });
-
 };
 
 login();
 
 exports.org = org;
 exports.findProperties = findProperties;
+exports.getBroker = getBroker;
 exports.findPriceChanges = findPriceChanges;
 exports.createCase = createCase;

@@ -14,9 +14,9 @@ exports.send = (message, recipient) => {
         }
     }, (error, response) => {
         if (error) {
-            console.log('Error sending message: ', error);
+            console.log('メッセージ送信でエラー: ', error);
         } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
+            console.log('エラー: ', response.body.error);
         }
     });
 };
@@ -31,10 +31,10 @@ exports.getUserInfo = (userId) => {
             method: 'GET',
         }, (error, response) => {
             if (error) {
-                console.log('Error sending message: ', error);
+                console.log('メッセージ送信でエラー: ', error);
                 reject(error);
             } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
+                console.log('エラー: ', response.body.error);
             } else {
                 resolve(JSON.parse(response.body));
             }
