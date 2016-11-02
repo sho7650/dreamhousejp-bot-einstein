@@ -54,4 +54,4 @@ Salesforce 接続アプリケーションをまだ作成していない場合は
     - **トークンの確認** を求められたら、Heroku アプリをデプロイするときに **FB_VERIFY_TOKEN** 環境変数に入力したのと同じ値を入力します。
     - ［**Select a page to subscribe your webhook...**］ドロップダウンでページを選択します。
 
-1. 前のステップで作成した Facebook ページにアクセスし、［**Message**］ボタンをクリックします。チャットBotに「**help**」と入力します。Botとの会話は、スマートフォンの Messenger アプリでもブラウザでも（http://messenger.com）続けることができます。
+1. 前のステップで作成した Facebook ページにアクセスし、［**Message**］ボタンをクリックします。チャットBotに「**help**」と入力します。Botとの会話は、スマートフォンの Messenger アプリでもブラウザでも（ http://messenger.com ）続けることができます。
