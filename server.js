@@ -46,6 +46,13 @@ app.post('/webhook', (req, res) => {
             } else {
                 console.log("Postback " + postback + " は定義されていません");
             }
+        } else if (event.message && event.message.attachments) {
+          let attachments = event.message.attachments;
+          for (let j = 0; j < attachments.length; j++) {
+            let attachment = attachments[j];
+            let url        = attachment.payload.url;
+            console.log(url)
+          }
         }
     }
     res.sendStatus(200);
