@@ -8,6 +8,7 @@ searchHouse 物件を探
 searchHouse 探す
 searchHouse 物件
 priceChanges 価格変更
-hi こんにちわ
+hi こんにち(わ|は)
+hello こんばん(わ|は)
 help ヘルプ
 unknown (.*)

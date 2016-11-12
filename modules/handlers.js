@@ -63,6 +63,12 @@ exports.hi = (sender) => {
     });
 };
 
+exports.hello = (sender) => {
+  messenger.getUserInfo(sender).then(response => {
+    messenger.send({text: `こんばんは。 ${response.last_name} 様!`}, sender);
+  });
+};
+
 exports.help = (sender) => {
     messenger.send({text: `ようこそドリームハウスへ。\n物件はメッセージから検索することもできます。 "場所:品川", "部屋数:3 場所:品川", "部屋数:3 場所:品川 価格:5000から7500の間", "価格変更" などのように、さまざまなキーワードを使って条件を指定できます`}, sender);
 };
