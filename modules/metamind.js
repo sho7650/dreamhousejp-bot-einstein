@@ -27,7 +27,7 @@ let options = {
 //let token = jwt.sign(claim, cert, { algorithm: 'RS256'});
 //let token = jwt.sign(claim, cert);
 
-exports.getStyle = (url) => {
+exports.getStyle = (sender, url) => {
 
   // JWTの生成と署名
   let token = jwt.sign({ foo: 'bar'}, cert, options);
