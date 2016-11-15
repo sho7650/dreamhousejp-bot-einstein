@@ -5,6 +5,7 @@ var express = require('express'),
     processor = require('./modules/processor'),
     handlers = require('./modules/handlers'),
     postbacks = require('./modules/postbacks'),
+    metamind = require('./modules/metamind'),
     FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN,
     app = express();
 
@@ -51,7 +52,7 @@ app.post('/webhook', (req, res) => {
           for (let j = 0; j < attachments.length; j++) {
             let attachment = attachments[j];
             let url        = attachment.payload.url;
-            console.log(url)
+            metamind.getStyle(url);
           }
         }
     }
