@@ -58,7 +58,7 @@ exports.getStyle = (sender, url) => {
       })
       .end(function (res) {
         console.log(res.body);
-        messenger.send({text: `実行結果 ${res.body}`}, sender);
+        messenger.send({text: `実行結果 ${res.body.probabilities[0].label}`}, sender);
       });
     }
   });
