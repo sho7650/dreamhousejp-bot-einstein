@@ -48,8 +48,8 @@ exports.getStyle = (sender, url) => {
         'sampleLocation': url
       })
       .end(function (res) {
-        return res.body.probabilities[0].label;
-//        let label = res.body.probabilities[0].label;
+        let label = res.body.probabilities[0].label;
+        return label;
 //        handlers.searchStyle(sender, label);
       });
     }
