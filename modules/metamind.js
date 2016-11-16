@@ -61,6 +61,7 @@ exports.getStyle = (sender, url) => {
         console.log(label);
         messenger.send({text: `かしこまりました ${label}スタイルの物件を検索します...`}, sender);
         salesforce.findProperties({style: label}).then(properties => {
+          console.log(properties);
           messenger.send(formatter.formatProperties(properties), sender);
         });
       });
