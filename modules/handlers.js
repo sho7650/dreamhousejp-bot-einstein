@@ -4,6 +4,12 @@ let salesforce = require('./salesforce'),
     messenger = require('./messenger'),
     formatter = require('./formatter');
 
+exports.searchStyle = (sender, label) => {
+  messenger.send({text: `かしこまりました ${label}スタイルの物件を検索します...`}, sender);
+  salesforce.findProperties({style: label}).then(properties => {
+    messenger.send(formatter.formatProperties(properties), sender);
+}
+
 exports.searchHouse = (sender) => {
     messenger.send({text: `かしこまりました。現在売り出し中の物件を検索しています...`}, sender);
     salesforce.findProperties().then(properties => {
@@ -65,9 +71,9 @@ exports.hi = (sender) => {
 
 exports.hello = (sender) => {
   messenger.getUserInfo(sender).then(response => {
-    messenger.send({text: `こんばんは。 ${response.last_name} 様!`}, sender);
-  });
-};
+    messenger.send({text: `こんばんは。 $r`})
+  })
+}
 
 exports.help = (sender) => {
     messenger.send({text: `ようこそドリームハウスへ。\n物件はメッセージから検索することもできます。 "場所:品川", "部屋数:3 場所:品川", "部屋数:3 場所:品川 価格:5000から7500の間", "価格変更" などのように、さまざまなキーワードを使って条件を指定できます`}, sender);
