@@ -20,11 +20,6 @@ let options = {
   expiresIn: 600
 }
 
-// JWTの生成と署名
-//let token = jwt.sign({ foo: 'bar'}, cert, options);
-//let token = jwt.sign(claim, cert, { algorithm: 'RS256'});
-//let token = jwt.sign(claim, cert);
-
 exports.getStyle = (sender, url) => {
 
   // JWTの生成と署名
@@ -44,8 +39,6 @@ exports.getStyle = (sender, url) => {
       let ret = JSON.parse(body);
       let access_token = ret.access_token;
 
-      console.log(access_token);
-
       unirest.post('https://api.metamind.io/v1/vision/predict')
       .headers({
         'Authorization': "Bearer "+access_token
@@ -55,8 +48,9 @@ exports.getStyle = (sender, url) => {
         'sampleLocation': url
       })
       .end(function (res) {
-        let label = res.body.probabilities[0].label;
-        handlers.searchStyle(sender, label);
+        return res.body.probabilities[0].label;
+//        let label = res.body.probabilities[0].label;
+//        handlers.searchStyle(sender, label);
       });
     }
   });

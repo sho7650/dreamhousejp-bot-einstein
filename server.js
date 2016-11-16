@@ -52,7 +52,9 @@ app.post('/webhook', (req, res) => {
           for (let j = 0; j < attachments.length; j++) {
             let attachment = attachments[j];
             let url        = attachment.payload.url;
-            metamind.getStyle(sender, url);
+            metamind.getStyle(url, (label) => {
+              handlers.searchStyle(sender, url);
+            });
           }
         }
     }

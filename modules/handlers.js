@@ -5,10 +5,10 @@ let salesforce = require('./salesforce'),
     formatter = require('./formatter');
 
 exports.searchStyle = (sender, label) => {
-  messenger.send({text: `かしこまりました ${label}スタイルの物件を検索します...`}, sender);
-  salesforce.findProperties({style: label}).then(properties => {
-    messenger.send(formatter.formatProperties(properties), sender);
-  });
+    messenger.send({text: `かしこまりました ${label}スタイルの物件を検索します...`}, sender);
+    salesforce.findProperties({style: label}).then(properties => {
+        messenger.send(formatter.formatProperties(properties), sender);
+    });
 };
 
 exports.searchHouse = (sender) => {
