@@ -20,7 +20,7 @@ let options = {
   expiresIn: 600
 }
 
-exports.getStyle = (sender, url) => {
+exports.getStyle = (url) => {
 
   // JWTの生成と署名
   let token = jwt.sign({ foo: 'bar'}, cert, options);
