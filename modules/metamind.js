@@ -58,7 +58,7 @@ exports.getStyle = (sender, url) => {
       })
       .end(function (res) {
         console.log(res.body);
-        label = res.body.probabilities[0].label;
+        let label = res.body.probabilities[0].label;
         salesforce.findProperties({style: label}).then(properties => {
           messenger.send(formatter.formatProperties(properties), sender);
         });
