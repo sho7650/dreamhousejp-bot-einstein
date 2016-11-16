@@ -20,7 +20,7 @@ let options = {
   expiresIn: 600
 }
 
-exports.getStyle = (url) => {
+exports.getStyle = (sender, url) => {
 
   // JWTの生成と署名
   let token = jwt.sign({ foo: 'bar'}, cert, options);
@@ -49,8 +49,7 @@ exports.getStyle = (url) => {
       })
       .end(function (res) {
         let label = res.body.probabilities[0].label;
-        return label;
-//        handlers.searchStyle(sender, label);
+        handlers.searchStyle(sender, label);
       });
     }
   });
