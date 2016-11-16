@@ -8,7 +8,8 @@ exports.searchStyle = (sender, label) => {
   messenger.send({text: `かしこまりました ${label}スタイルの物件を検索します...`}, sender);
   salesforce.findProperties({style: label}).then(properties => {
     messenger.send(formatter.formatProperties(properties), sender);
-}
+  });
+};
 
 exports.searchHouse = (sender) => {
     messenger.send({text: `かしこまりました。現在売り出し中の物件を検索しています...`}, sender);
