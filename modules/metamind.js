@@ -8,10 +8,10 @@ formatter = require('./formatter'),
 request = require('request'),
 unirest = require('unirest'),
 TOKEN_ENDPOINT_URL = 'https://api.metamind.io/v1/oauth2/token',
-ISSUER = 'developer.force.com',
-AUDIENCE = 'https://api.metamind.io/v1/oauth2/token',
-SUBJECT = 'hinaba@salesforce.com',
-cert = fs.readFileSync('./cert/private_key', 'UTF8');
+ISSUER = process.env.METAMIND_ISSUER,
+AUDIENCE = process.env.METAMIND_AUDIENCE,
+SUBJECT = process.env.METAMIND_SUBJECT,
+cert = fs.readFileSync(process.env.METAMIND_CERT, 'UTF8');
 
 // JWTに記載されるメッセージの内容
 let options = {
@@ -53,12 +53,16 @@ exports.getStyle = (sender, url) => {
         'Authorization': "Bearer "+access_token
       })
       .field({
-        'modelId': 'QG3LM7HTKQMRKLDIAEGVOYMSOE',
+        'modelId': process.env.METAMIND_MODEL,
         'sampleLocation': url
       })
       .end(function (res) {
         console.log(res.body);
-        messenger.send({text: `実行結果 ${res.body.probabilities[0].label}`}, sender);
+        label = res.body.probabilities[0].label;
+        salesforce.findProperties({style: label}).then(properties => {
+          messenger.send(formatter.formatProperties(properties), sender);
+        });
+        messenger.send({text: `実行結果 ${label}`}, sender);
       });
     }
   });

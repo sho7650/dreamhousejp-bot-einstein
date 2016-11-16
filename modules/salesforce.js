@@ -35,6 +35,7 @@ let findProperties = (params) => {
         if (params.bedrooms) parts.push(`beds__c=${params.bedrooms}`);
         if (params.priceMin) parts.push(`price__c>=${params.priceMin}`);
         if (params.priceMax) parts.push(`price__c<=${params.priceMax}`);
+        if (params.style) parts.push(`InteriorStyle__c==${params.style}`);
         if (parts.length>0) {
             where = "WHERE " + parts.join(' AND ');
         }
@@ -49,7 +50,8 @@ let findProperties = (params) => {
                     beds__c,
                     baths__c,
                     picture__c,
-                    broker__c
+                    broker__c,
+                    InteriorStyle__c
                 FROM property__c
                 ${where}
                 LIMIT 5`;
