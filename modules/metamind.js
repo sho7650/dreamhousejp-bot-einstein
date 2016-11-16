@@ -2,7 +2,7 @@
 
 let fs = require('fs'),
 jwt = require('jsonwebtoken'),
-salesforce = require('./handlers'),
+handlers = require('./handlers'),
 request = require('request'),
 unirest = require('unirest'),
 TOKEN_ENDPOINT_URL = 'https://api.metamind.io/v1/oauth2/token',
