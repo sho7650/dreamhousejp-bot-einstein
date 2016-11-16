@@ -2,9 +2,7 @@
 
 let fs = require('fs'),
 jwt = require('jsonwebtoken'),
-salesforce = require('./salesforce'),
-messenger = require('./messenger'),
-formatter = require('./formatter'),
+salesforce = require('./handlers'),
 request = require('request'),
 unirest = require('unirest'),
 TOKEN_ENDPOINT_URL = 'https://api.metamind.io/v1/oauth2/token',
@@ -58,12 +56,7 @@ exports.getStyle = (sender, url) => {
       })
       .end(function (res) {
         let label = res.body.probabilities[0].label;
-        console.log(label);
-        messenger.send({text: `かしこまりました ${label}スタイルの物件を検索します...`}, sender);
-        salesforce.findProperties({style: label}).then(properties => {
-          console.log(properties);
-          messenger.send(formatter.formatProperties(properties), sender);
-        });
+        handlers.searchStyle(sender, label);
       });
     }
   });
