@@ -57,12 +57,12 @@ exports.getStyle = (sender, url) => {
         'sampleLocation': url
       })
       .end(function (res) {
-        console.log(res.body);
         let label = res.body.probabilities[0].label;
+        console.log(label);
+        messenger.send({text: `かしこまりました ${label}スタイルの物件を検索します...`}, sender);
         salesforce.findProperties({style: label}).then(properties => {
           messenger.send(formatter.formatProperties(properties), sender);
         });
-        messenger.send({text: `実行結果 ${label}`}, sender);
       });
     }
   });
