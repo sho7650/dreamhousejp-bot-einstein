@@ -1,15 +1,17 @@
 "use strict";
 
 let fs = require('fs'),
-jwt = require('jsonwebtoken'),
-handlers = require('./handlers'),
-request = require('request'),
-unirest = require('unirest'),
-TOKEN_ENDPOINT_URL = 'https://api.metamind.io/v1/oauth2/token',
-ISSUER = process.env.METAMIND_ISSUER,
-AUDIENCE = process.env.METAMIND_AUDIENCE,
-SUBJECT = process.env.METAMIND_SUBJECT,
-cert = fs.readFileSync(process.env.METAMIND_CERT, 'UTF8');
+    jwt = require('jsonwebtoken'),
+    handlers = require('./handlers'),
+    request = require('request'),
+    unirest = require('unirest'),
+    TOKEN_ENDPOINT_URL = 'https://api.metamind.io/v1/oauth2/token',
+    ISSUER = process.env.METAMIND_ISSUER,
+    AUDIENCE = process.env.METAMIND_AUDIENCE,
+    SUBJECT = process.env.METAMIND_SUBJECT,
+    cert = fs.readFileSync(process.env.METAMIND_CERT, 'UTF8');
+
+console.log(cert);
 
 // JWTに記載されるメッセージの内容
 let options = {
@@ -24,6 +26,8 @@ exports.getStyle = (sender, url) => {
 
   // JWTの生成と署名
   let token = jwt.sign({ foo: 'bar'}, cert, options);
+
+console.log(token);
 
   request({
     method: 'POST',
