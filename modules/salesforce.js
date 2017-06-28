@@ -10,13 +10,15 @@ let nforce = require('nforce'),
 let org = nforce.createConnection({
     clientId: SF_CLIENT_ID,
     clientSecret: SF_CLIENT_SECRET,
+    apiVersion: '36.0',
+    envirionment: 'production',
     redirectUri: 'http://localhost:3000/oauth/_callback',
-    mode: 'single',
-    autoRefresh: true
+    mode: 'single'
+//    autoRefresh: true
 });
 
 let login = () => {
-    org.authenticate({username: SF_USER_NAME, password: SF_PASSWORD}, err => {
+    org.authenticate({username: SF_USER_NAME, password: SF_PASSWORD}, function(err, resp) {
         if (err) {
             console.error("Authentication error");
             console.error(err);
