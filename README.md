@@ -55,3 +55,5 @@ Salesforce 接続アプリケーションをまだ作成していない場合は
     - ［**Select a page to subscribe your webhook...**］ドロップダウンでページを選択します。
 
 1. 前のステップで作成した Facebook ページにアクセスし、［**Message**］ボタンをクリックします。チャットBotに「**help**」と入力します。Botとの会話は、スマートフォンの Messenger アプリでもブラウザでも（ http://messenger.com ）続けることができます。
+
+$$
